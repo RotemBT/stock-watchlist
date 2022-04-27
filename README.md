@@ -7,6 +7,7 @@ In this project you can add stocks to you watch list, you can watch the real val
 ## TODO
 
 - [ ] backend side
+- [ ] connect to redis
 - [ ] frontend side
 - [ ] docker compose
 - [ ] make a video
