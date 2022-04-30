@@ -37,6 +37,7 @@ docker build . -t stream-service
 docker run -ti -p 8888:8086 stream-service
 ```
 Then got to [localhost:8888](http://localhost:8888/)
+
 2. Backend-service
 ```
 cd backend-service
