@@ -30,13 +30,20 @@ or
 ### run with docker
 Install Docker [click here to install](https://docs.docker.com/engine/install/ubuntu/)
 Run services: 
+1. Stream-service
 ```
 cd stream-service
 docker build . -t stream-service
 docker run -ti -p 8888:8086 stream-service
 ```
 Then got to [localhost:8888](http://localhost:8888/)
-
+2. Backend-service
+```
+cd backend-service
+docker build . -t backend-service
+docker run -ti -p 8088:8085 backend-service
+```
+Then got to [localhost:8088](http://localhost:8088/)
 
 ## TODO
 
