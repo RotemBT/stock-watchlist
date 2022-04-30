@@ -1,4 +1,3 @@
-import string
 from pydantic import BaseModel
 from typing import List
 
@@ -9,7 +8,7 @@ class Stock(BaseModel):
     exchangeCode: str
     tradePrice: float
     tradeSize: int
-    time: string
+    time: str
     tradeCondition: List[str]
     tape: str
 
