@@ -2,17 +2,26 @@ import string
 from pydantic import BaseModel
 from typing import List
 
+
+class News(BaseModel):
+    headline: str
+    timeCreated: str
+    timeUpdate: str
+    author: str
+    summary:str
+    content: str
+    url: str
+    symbol: List[str]
+    source: str
+    id: int
+
 class Stock(BaseModel):
-    message: str
-    symbol: str
+    symbol: str 
     tradeId: int
     exchangeCode: str
     tradePrice: float
     tradeSize: int
-    time: string
-    tradeCondition: List[str]
-    tape: str
-
+    time: str
 
 class Quote(BaseModel):
     message: str
@@ -37,16 +46,3 @@ class MinuteBar(BaseModel):
     highPrice: float
     volume: int
     time: str
-
-
-class News(BaseModel):
-    message: str
-    timeCreated: str
-    timeUpdate: str
-    author: str
-    summary:str
-    content: str
-    url: str
-    symbol: List[str]
-    source: str
-    id: int
