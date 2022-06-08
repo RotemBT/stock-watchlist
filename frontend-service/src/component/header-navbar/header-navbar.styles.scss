@@ -1,0 +1,45 @@
+.top-navbar {
+    height: 60px;
+    background-image: linear-gradient(#342626, #704747);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+    .left {
+        display: flex;
+        align-items: center;
+        
+        .svg {
+            height: 40px;
+            width: 40px;
+            fill: white;
+        }
+    
+        .text {
+            color: white;
+            margin-left: 20px;
+            font-size: 20px;
+        }
+    }
+    .right {
+        a {
+            color: white;
+            border: mediumseagreen;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: mediumseagreen;
+            text-decoration: none;
+            &:hover {
+                background-color: #55c788;
+            }
+            &:active {
+                background-color: #349760;
+            }
+        }
+       
+    }
+    
+}
+

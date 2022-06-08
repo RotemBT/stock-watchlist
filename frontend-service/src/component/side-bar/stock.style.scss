@@ -1,0 +1,18 @@
+.stock {
+    display: inline-flex;
+    border-radius: 10px;
+    color: white;
+    background-color: mediumseagreen;
+    border: none;
+    margin: 3px;
+    padding: 2px 10px;
+    &:hover {
+        cursor: pointer;
+    }
+    .svg-stock {
+        width: 10px;
+        padding-right: 5px;
+        height: 10px;
+        fill: white;
+    }
+}
