@@ -46,12 +46,19 @@ docker run -ti -p 8088:8085 backend-service
 ```
 Then got to [localhost:8088](http://localhost:8088/)
 
+3. Frontend-service
+```
+cd frontend-service
+docker build . -t frontend-service
+docker run -ti -p 3000:3000 frontend-service
+```
+Then got to [localhost:3000](http://localhost:3000/)
 ## TODO
 
 - [X] backend side
 - [ ] connect between backend services
 - [ ] connect to redis
-- [ ] frontend side
+- [X] frontend side
 - [ ] docker compose
 - [ ] make a video
 - [ ] Finish readme    
