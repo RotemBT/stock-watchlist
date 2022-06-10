@@ -1,24 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import DataContext from "../../context/data-context";
+import Stock from "./stock-component/stock.component";
 import './side-bar.styles.scss';
-import Stock from "./stock.component";
-import { SYMBOLS } from "./add-stocks.constant";
-const SideBar = (props) => {
+
+const SideBar = () => {
     const [isOpen, setOpen] = useState(false);
+    const ctx = useContext(DataContext);
     return (
-        <div className="left-pane" style={{width: isOpen? '250px' : '50px', minHeight: 'calc(100vh - 83px)'}}>
-            <button 
-                className="left-pane-button" 
+        <div
+            className="left-pane"
+            style={{ width: isOpen ? '300px' : '60px' }}
+        >
+            <button
+                className="left-pane-button"
                 type="button"
                 onClick={() => setOpen(!isOpen)}
             >
                 Add stock
             </button>
-            {isOpen && (
-                <div>
-                    {SYMBOLS.map( symbol => <Stock name={symbol}/> )}
-                   
-                </div>
-            )}
+            <hr />
+            <div className="stocks-wrapper" style={{ overflowY: !isOpen ? 'none' : 'scroll' }}>
+                {ctx.stocksWatch && isOpen && <p className="stock-text">Stock Watch:</p>}
+                {ctx.stocksWatch && isOpen && (
+                    ctx.stocksWatch?.map(symbol => <Stock
+                        name={symbol}
+                        onClick={ctx.onWatch}
+                        isInList={true}
+                    />)
+                )}
+                {isOpen && (
+                    <div className="unwatch-stocks-wrapper">
+                        <p className="stock-text">Stock Unwatch:</p>
+                        {ctx.stocksUnwatch?.map(symbol => <Stock
+                            name={symbol}
+                            onClick={ctx.onWatch}
+                            isInList={false}
+                        />
+                        )}
+
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

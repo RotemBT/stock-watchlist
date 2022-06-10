@@ -5,4 +5,26 @@ body {
     background-attachment: fixed;
     background-size: cover;
     height: 100vh;
+    font-family: Geneva, Verdana, sans-serif;
+
+
+    .App {
+        display: grid;
+        grid-template-areas: 
+            'header header header header header'
+            'menu main main main main'
+            'menu main main main main ';
+    }
+
+    .main {
+        grid-area: main;
+    }
+
+    .header {
+        grid-area: header;
+    }
+
+    .menu{
+        grid-area: menu;
+    }
 }

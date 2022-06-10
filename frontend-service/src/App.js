@@ -1,19 +1,21 @@
-import React from "react";
-import './App.styles.scss';
-import AddStock from "./component/add-stocks/add-stocks.component";
+import React, { useEffect } from "react";
 import HeaderNavbar from './component/header-navbar/HeaderNavbar';
-import News from "./component/News/news.component";
+import FilterBar from "./component/News/filter-bar.component";
 import SideBar from "./component/side-bar/side-bar.component";
+import './App.styles.scss';
+
 function App() {
   return (
     <div className="App">
-      <HeaderNavbar />
-      <SideBar />
-      <div>
-        <News />
-        <AddStock />
+      <div className="header">
+        <HeaderNavbar />
       </div>
-      
+      <div className="menu">
+        <SideBar />
+      </div>
+      <div className="main">
+        <FilterBar />
+      </div>
     </div>
   );
 }

@@ -1,0 +1,29 @@
+.news-wrapper {
+    margin-top: 40px;
+    display: flex;
+    background-color: white;
+    height: 70vh;
+    width: 80%;
+    .filter-wrapper {
+        padding-top: 10px;
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+        margin-right: 20px;
+        background-color: #55c788;
+        .tab {
+            border-radius: 10px 0px 0px 10px;
+            height: 40px;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #87d4a9;
+            }
+            &:active {
+                background-color: white;
+            }
+        }
+    }
+}

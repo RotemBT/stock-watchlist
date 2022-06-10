@@ -1,5 +1,16 @@
 .news {
-    top: 76px;
-    left: 221px;
-    position: absolute;
+    display: flex;
+    align-items: flex-start;
+    margin: 0 auto;
+
+    .table {
+        margin-top: 15px;
+        
+        td {
+            padding: 5px 20px;
+            border-bottom: 1px solid lightgrey;
+            color: #702626;
+        }
+    }
+    
 }

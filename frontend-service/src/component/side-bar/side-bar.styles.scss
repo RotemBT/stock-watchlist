@@ -1,18 +1,33 @@
-.left-pane{
-    width: 50px;
-    background-color: white;
+.left-pane {
+    background-image: linear-gradient(to right, #FFF5EE , white);
     display: inline-block;
-    transition: width 0.5s ease-in-out;
-    overflow-y: scroll;
+    transition: width 0.2s ease-in-out;
     position: relative;
     z-index: 10;
+    min-height: calc(100vh - 60px);
+    max-height: calc(100vh - 60px);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+
     .left-pane-button {
-        padding-top: 20px;
+        padding: 20px 0px;
         height: 100%;
         background-color: transparent;
         border: none;
+        display: block;
+        margin: auto;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        
         &:hover {
             cursor: pointer;
+        }
+    }
+
+    .stocks-wrapper {
+        height: 887px;
+       
+        .unwatch-stocks-wrapper{
+            margin-top: 10px;
         }
     }
 }
