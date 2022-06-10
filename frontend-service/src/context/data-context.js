@@ -7,15 +7,15 @@ const DataContext = React.createContext({
     onWatch: (stock, isInList) => { }
 });
 export const DataContextProvider = (props) => {
-    const [stocksWatch, setStocks] = useState([]);
-    const [stocksUnwatch, setSymbols] = useState([...SYMBOLS]);
+    const [stocksWatch, setStocksWatch] = useState([]);
+    const [stocksUnwatch, setSymbolsUnwatch] = useState([...SYMBOLS]);
     const onWatch = (stock, isInList) => {
         if (isInList) {
-            setStocks([...stocksWatch.filter(s => s !== stock)]);
-            setSymbols([...stocksUnwatch, stock]);
+            setStocksWatch([...stocksWatch.filter(s => s !== stock)]);
+            setSymbolsUnwatch([...stocksUnwatch, stock]);
         } else {
-            setStocks([...stocksWatch, stock]);
-            setSymbols([...stocksUnwatch.filter(s => s !== stock)]);
+            setStocksWatch([...stocksWatch, stock]);
+            setSymbolsUnwatch([...stocksUnwatch.filter(s => s !== stock)]);
         }
     };
     return (

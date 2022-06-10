@@ -14,10 +14,20 @@ const FilterBar = (props) => {
     const [filterSymbol, setFilterSymbol] = useState('');
     const filteredNews = (news, filterSymbol) => news?.filter(obj => obj.symbol === filterSymbol);
 
+    useEffect(() => {
+        if (!filterSymbol && ctx.stocksWatch.length !== 0) {
+            setFilterSymbol(ctx.stocksWatch[0]);
+        }
+    }, [filterSymbol, ctx.stocksWatch, ctx.onWatch]);
 
     return (
         <div className="news-wrapper">
             <div className="filter-wrapper">
+                {ctx.stocksWatch.length === 0 && (
+                    <h3 className="empty-list">
+                        Please Add some stocks to list
+                    </h3>
+                )}
                 {ctx.stocksWatch && ctx.stocksWatch.map(s => (
                     <button
                         style={{ backgroundColor: s === filterSymbol && 'white', boxShadow: s === filterSymbol && '-2px 0px 3px 1px rgb(0 0 0 / 50%)' }}

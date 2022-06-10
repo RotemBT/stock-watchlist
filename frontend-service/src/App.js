@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import HeaderNavbar from './component/header-navbar/HeaderNavbar';
 import FilterBar from "./component/News/filter-bar.component";
 import SideBar from "./component/side-bar/side-bar.component";
