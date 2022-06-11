@@ -1,8 +1,8 @@
 import React from "react";
 import { ReactComponent } from './x-sign.svg';
 import './stock.style.scss'
-const Stock = (props) => {
-    const { name, onClick, isInList } = props;
+const Stock = ({ name, onClick, isInList }) => {
+
     return (
         <button
             className="stock"

@@ -1,19 +1,23 @@
 import React, { useState } from "react";
 import { SYMBOLS } from "./stocks.constant";
+import { NEWS_DATA } from "../news.data";
+import { CHART_DATA } from '../chart.data';
 
 const DataContext = React.createContext({
     stocksWatch: [],
     stocksUnwatch: [...SYMBOLS],
     onWatch: (stock, isInList) => { },
     fetchNews: () => { },
-    news: []
+    fetchBars: () => { },
+    news: [...NEWS_DATA],
+    bars: [...CHART_DATA]
 });
 export const DataContextProvider = (props) => {
     const [stocksWatch, setStocksWatch] = useState([]);
     const [stocksUnwatch, setSymbolsUnwatch] = useState([...SYMBOLS]);
-    const [news, setNews] = useState([]);
-    const url = 'https://data.alpaca.markets/v1beta1/news?start=2021-12-28T00:00:00Z&end=2021-12-31T11:59:59Z&symbols=AAPL,TSLA\' --header \'Apca-Api-Key-Id: AKQMMBGXFI6VWHXB20T5\' --header \'Apca-Api-Secret-Key: 6BgrUicRl7xMOmBl2w8OgxsbdQOsCJUdSC3geEne\'';
-
+    const [news, setNews] = useState([...NEWS_DATA]);
+    const [bars, setBars] = useState([...CHART_DATA]);
+    const url = 'http://localhost:8085/api/';
     const onWatch = (stock, isInList) => {
         if (isInList) {
             setStocksWatch([...stocksWatch.filter(s => s !== stock)]);
@@ -25,11 +29,18 @@ export const DataContextProvider = (props) => {
     };
     const fetchNews = async () => {
         const stocks = [...stocksWatch].join(',');
-        const response = await fetch(url);
+        const response = await fetch(`${url}news/?${stocks}`);
         const data = await response.json();
         const getNews = [...data.news];
         console.log(data);
         setNews(getNews);
+    };
+    const fetchBars = async (stock) => {
+        const response = await fetch(`${url}bars/?${stock}`);
+        const data = await response.json();
+        const bars = [...data.bars];
+        console.log(data);
+        setBars(bars);
     };
     return (
         <DataContext.Provider value={{
@@ -37,7 +48,9 @@ export const DataContextProvider = (props) => {
             stocksUnwatch: stocksUnwatch,
             onWatch: onWatch,
             fetchNews: fetchNews,
-            news: news
+            fetchBars: fetchBars,
+            news: news,
+            bars: bars
         }}>{props.children}</DataContext.Provider>
     );
 }

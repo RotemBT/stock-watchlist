@@ -1,25 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
 import DataContext from "../../context/data-context";
 import News from "./news.component";
+import LineChart from "./chart/chart.component";
 import './filter-bar.styles.scss';
-const dummy = [
-    { symbol: 'AAPL', headline: 'this is apple', url: 'www.example.com', source: 'benzinga', timeCreate: '22/2/2022' },
-    { symbol: 'TLSA', headline: 'this is tesla', url: 'www.example.com', source: 'benzinga', timeCreate: '22/2/2022' },
-    { symbol: 'MSFT', headline: 'this is microsoft', url: 'www.example.com', source: 'benzinga', timeCreate: '22/2/2022' },
-    { symbol: 'FB', headline: 'this is Meta', url: 'www.example.com', source: 'benzinga', timeCreate: '22/2/2022' }
-];
-const FilterBar = (props) => {
-    const news = dummy;
+
+const FilterBar = () => {
     const ctx = useContext(DataContext);
+    const news = ctx.news;
     const [filterSymbol, setFilterSymbol] = useState('');
-    const filteredNews = (news, filterSymbol) => news?.filter(obj => obj.symbol === filterSymbol);
+    const filteredNews = (news, filterSymbol) => news?.filter(obj => obj.symbols?.includes(filterSymbol));
 
     useEffect(() => {
         if (!filterSymbol && ctx.stocksWatch.length !== 0) {
             setFilterSymbol(ctx.stocksWatch[0]);
         }
-        ctx.fetchNews();
-    }, [filterSymbol, ctx.stocksWatch, ctx.onWatch]);
+    }, [filterSymbol, ctx, ctx.stocksWatch]);
 
     return (
         <div className="news-wrapper">
@@ -40,8 +35,14 @@ const FilterBar = (props) => {
                     </button>
                 ))}
             </div>
-
-            <News news={filteredNews(news, filterSymbol)} />
+            <div>
+                <News
+                    news={filteredNews(news, filterSymbol)}
+                    symbol={filterSymbol}
+                />
+                <h3>Bar chart - {filterSymbol}</h3>
+                <LineChart />
+            </div>
         </div>
     );
 };
