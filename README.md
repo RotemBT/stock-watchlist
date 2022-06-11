@@ -49,7 +49,7 @@ Then got to [localhost:3000](http://localhost:3000/)
 - [X] backend side
 - [ ] connect to redis
 - [X] frontend side
-- [ ] docker compose
+- [X] docker compose
 - [ ] make a video
-- [ ] Finish readme    
+- [X] Finish readme    
  
