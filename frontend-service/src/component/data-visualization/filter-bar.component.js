@@ -29,7 +29,11 @@ const FilterBar = () => {
                         style={{ backgroundColor: s === filterSymbol && 'white', boxShadow: s === filterSymbol && '-2px 0px 3px 1px rgb(0 0 0 / 50%)' }}
                         className="tab"
                         type="button"
-                        onClick={() => setFilterSymbol(s)}
+                        onClick={() => {
+                            setFilterSymbol(s);
+                            ctx.fetchBars(s);
+                            ctx.fetchNews();
+                        }}
                     >
                         {s}
                     </button>
