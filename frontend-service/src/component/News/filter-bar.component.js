@@ -18,6 +18,7 @@ const FilterBar = (props) => {
         if (!filterSymbol && ctx.stocksWatch.length !== 0) {
             setFilterSymbol(ctx.stocksWatch[0]);
         }
+        ctx.fetchNews();
     }, [filterSymbol, ctx.stocksWatch, ctx.onWatch]);
 
     return (

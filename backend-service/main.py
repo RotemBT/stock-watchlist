@@ -1,6 +1,9 @@
-from fastapi import FastAPI, HTTPException, WebSocket
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from alpaca_trade_api.rest import REST, TimeFrame
+import config
 from typing import List
+
 app = FastAPI()
 
 app.add_middleware(
@@ -9,36 +12,34 @@ app.add_middleware(
     allow_methods=['*'],
     allow_headers=['*']
 )
-db: List[str] = []
+stockWatch: List[str] = []
 
 @app.get("/")
 def root():
-    return {"hello":"world"}
+    return {'hello':'world'}
 
-@app.get('/stocks')
-async def get_stocks_list():
-    return {'folowing stocks': db}
-
-@app.get('/stocks/{stock}')
-async def get_stock_data(symbol: str):
-    for stock in db:
-        if stock == symbol:
-            return { "stock": stock }
-    raise HTTPException(status_code= 404, detail= f"stock {symbol} not in watch list")
-
-@app.post('/stocks/{stock}')
-async def watch(new_stock: str):
-    for stock in db:
-        if stock == new_stock:
-            raise HTTPException(status_code=409, detail=f'stock {new_stock} already exist')
-    db.append(new_stock)
-    return { f'{new_stock}' : 'added succesfully'}
-
-
-@app.delete('/stocks/{stock}')
-async def unwatch(symbol: str):
-    for stock in db:
-        if stock == symbol:
-            db.remove(symbol)
-            return {f"stock {symbol}": "removed successfully"}
-    raise HTTPException(status_code= 404, detail= f"stock {symbol} not in watch list")      
+@app.post('/api/news')
+async def get_stocks_list(stocks: str):
+    global stockWatch
+    stocksList = stocks.split(',')
+    stockWatch.extend(stocksList)
+    stockWatch = list(set(stockWatch))
+    rest_client = REST(config.API_KEY, config.SECRET_KEY)
+    news = rest_client.get_news(stocks, config.NEWS_START_DATE, config.NEWS_END_DATE)
+    newsFormatted = []
+    for n in news:
+        newsFormatted.append(n._raw)
+    return newsFormatted
+    
+@app.post('/api/bars')
+async def get_stocks_list(bars: str):
+    global stockWatch
+    stocksList = bars.split(',')
+    stockWatch.extend(stocksList)
+    stockWatch = list(set(stockWatch))
+    rest_client = REST(config.API_KEY, config.SECRET_KEY)
+    bars = rest_client.get_bars_iter(bars, TimeFrame.Day, config.BARS_START_DATE, config.BARS_END_DATE, adjustment='raw')
+    barsFormatted = []
+    for n in bars:
+        barsFormatted.append(n._raw)
+    return barsFormatted

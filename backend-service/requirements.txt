@@ -1,5 +1,5 @@
 fastapi==0.75.0
 uvicorn[standard]
-websocket-client
+alpaca-trade-api
 pytest
 requests
