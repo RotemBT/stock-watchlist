@@ -1,7 +1,7 @@
 import React from "react";
 import './news.styles.scss';
 
-const renderTable = (news) => (
+const renderTable = (news, symbol) => (
     <table className="table">
         <thead>
             <td>Symbol</td>
@@ -12,20 +12,20 @@ const renderTable = (news) => (
         </thead>
         {news && news.map(n => (
             <tr>
-                <td>{n.symbol}</td>
+                <td>{symbol}</td>
                 <td>{n.headline}</td>
                 <td><a href={n.url}>Link to source</a></td>
                 <td>{n.source}</td>
-                <td>{n.timeCreate}</td>
+                <td>{new Date(n.created_at).toLocaleDateString('en-GB')}</td>
             </tr>
         ))}
     </table>
 );
-const News = (props) => {
-    const { news } = props;
+const News = ({ news, symbol }) => {
+
     return (
         <div className="news">
-            {renderTable(news)}
+            {renderTable(news, symbol)}
         </div>
 
     );
