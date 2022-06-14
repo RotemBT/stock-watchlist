@@ -45,7 +45,7 @@ const FilterBar = () => {
                     symbol={filterSymbol}
                 />
                 <h3>Bar chart - {filterSymbol}</h3>
-                <LineChart />
+                <LineChart stock={filterSymbol} />
             </div>
         </div>
     );

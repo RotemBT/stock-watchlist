@@ -8,7 +8,7 @@ const DataContext = React.createContext({
     fetchNews: () => { },
     fetchBars: () => { },
     news: {},
-    bars: []
+    bars: {}
 });
 export const DataContextProvider = (props) => {
     const [stocksWatch, setStocksWatch] = useState([]);
@@ -45,8 +45,12 @@ export const DataContextProvider = (props) => {
     const fetchBars = async (stock) => {
         const response = await fetch(`${url}bars?stock=${stock}`);
         const data = await response.json();
-        const bars = [...data[stock]];
-        setBars(bars);
+        const parseData = [...data[stock]];
+        if (!bars[stock]) {
+            Object.assign(bars, { [stock]: parseData });
+            const barObj = { ...bars }
+            setBars(barObj);
+        }
     };
     return (
         <DataContext.Provider value={{

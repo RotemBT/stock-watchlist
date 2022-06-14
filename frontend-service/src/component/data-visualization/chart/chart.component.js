@@ -4,10 +4,10 @@ import { Chart as ChartJS } from 'chart.js/auto'
 import { Line } from 'react-chartjs-2';
 import './chart.styles.scss';
 
-const LineChart = () => {
+const LineChart = ({ stock }) => {
     const ctx = useContext(DataContext);
-    const date = ctx.bars.map(obj => obj.t.split('T')[0])
-    const price = ctx.bars.map(obj => obj.vw)
+    const date = ctx.bars[stock]?.map(obj => obj.t.split('T')[0])
+    const price = ctx.bars[stock]?.map(obj => obj.vw)
     return (
         <div className="chart">
             <Line data={{
