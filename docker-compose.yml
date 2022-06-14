@@ -16,8 +16,15 @@ services:
       DOCKER_COMPOSE_STACK: "true"
     ports:
       - "3000:3000"
+    links:
+     - backend-service
     networks:
       - host
+  redis:
+    image: redis
+    ports: 
+      - "6379:6379"
+
 
 networks:
   host: 
