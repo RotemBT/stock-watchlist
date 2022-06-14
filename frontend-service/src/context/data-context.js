@@ -17,7 +17,7 @@ export const DataContextProvider = (props) => {
     const [stocksUnwatch, setSymbolsUnwatch] = useState([...SYMBOLS]);
     const [news, setNews] = useState([...NEWS_DATA]);
     const [bars, setBars] = useState([...CHART_DATA]);
-    const url = 'https://localhost:8085/api/';
+    const url = 'http://localhost:8085/api/';
     const onWatch = (stock, isInList) => {
         if (isInList) {
             setStocksWatch([...stocksWatch.filter(s => s !== stock)]);
@@ -29,26 +29,15 @@ export const DataContextProvider = (props) => {
     };
     const fetchNews = async () => {
         const stocks = [...stocksWatch].join(',');
-        const response = await fetch(`${url}news/?${stocks}`,
-            {
-                mode: 'no-cors',
-            });
+        const response = await fetch(`${url}news?stocks=${stocks}`);
         const data = await response.json();
         const getNews = [...data.news];
-        console.log(data);
         setNews(getNews);
     };
     const fetchBars = async (stock) => {
-        const response = await fetch(`${url}bars/?${stock}`,
-            {
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            });
+        const response = await fetch(`${url}bars?stock=${stock}`);
         const data = await response.json();
-        const bars = [...data.bars];
-        console.log(data);
+        const bars = [...data[stock]];
         setBars(bars);
     };
     return (

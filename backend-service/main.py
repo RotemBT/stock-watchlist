@@ -19,7 +19,7 @@ stockWatch: List[str] = []
 def root():
     return {'hello':'world'}
 
-@app.post('/api/news')
+@app.get('/api/news')
 async def get_stocks_list(stocks: str):
     global stockWatch
     stocksList = stocks.split(',')
@@ -30,17 +30,14 @@ async def get_stocks_list(stocks: str):
     newsFormatted = []
     for n in news:
         newsFormatted.append(n._raw)
-    return newsFormatted
+    return {'news': newsFormatted}
     
-@app.post('/api/bars')
-async def get_stocks_list(bars: str):
-    global stockWatch
-    stocksList = bars.split(',')
-    stockWatch.extend(stocksList)
-    stockWatch = list(set(stockWatch))
+@app.get('/api/bars')
+async def get_stocks_list(stock: str):
     rest_client = REST(config.API_KEY, config.SECRET_KEY)
-    bars = rest_client.get_bars_iter(bars, TimeFrame.Day, config.BARS_START_DATE, config.BARS_END_DATE, adjustment='raw')
+    data = rest_client.get_bars_iter(stock, TimeFrame.Day, config.BARS_START_DATE, config.BARS_END_DATE, adjustment='raw')
     barsFormatted = []
-    for n in bars:
+    for n in data:
         barsFormatted.append(n._raw)
-    return barsFormatted
+    return {stock: barsFormatted}
+
