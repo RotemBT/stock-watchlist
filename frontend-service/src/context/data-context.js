@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { SYMBOLS } from "./stocks.constant";
-import { NEWS_DATA } from "../news.data";
-import { CHART_DATA } from '../chart.data';
 
 const DataContext = React.createContext({
     stocksWatch: [],
@@ -9,14 +7,14 @@ const DataContext = React.createContext({
     onWatch: (stock, isInList) => { },
     fetchNews: () => { },
     fetchBars: () => { },
-    news: [...NEWS_DATA],
-    bars: [...CHART_DATA]
+    news: {},
+    bars: []
 });
 export const DataContextProvider = (props) => {
     const [stocksWatch, setStocksWatch] = useState([]);
     const [stocksUnwatch, setSymbolsUnwatch] = useState([...SYMBOLS]);
-    const [news, setNews] = useState([...NEWS_DATA]);
-    const [bars, setBars] = useState([...CHART_DATA]);
+    const [news, setNews] = useState({});
+    const [bars, setBars] = useState([]);
     const url = 'http://localhost:8085/api/';
     const onWatch = (stock, isInList) => {
         if (isInList) {
@@ -27,11 +25,21 @@ export const DataContextProvider = (props) => {
             setSymbolsUnwatch([...stocksUnwatch.filter(s => s !== stock)]);
         }
     };
+    const filterNews = (news, filterSymbol) => news?.filter(obj => obj.symbols?.includes(filterSymbol));
+
     const fetchNews = async () => {
         const stocks = [...stocksWatch].join(',');
         const response = await fetch(`${url}news?stocks=${stocks}`);
         const data = await response.json();
-        const getNews = [...data.news];
+        stocksWatch.forEach(s => {
+            if (!news[s]) {
+                Object.assign(news, { [s]: filterNews([...data.news], s) });
+            } else {
+                news[s].concat(...filterNews([...data.news], s));
+            }
+        });
+        const getNews = { ...news };
+
         setNews(getNews);
     };
     const fetchBars = async (stock) => {

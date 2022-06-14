@@ -8,7 +8,6 @@ const FilterBar = () => {
     const ctx = useContext(DataContext);
     const news = ctx.news;
     const [filterSymbol, setFilterSymbol] = useState('');
-    const filteredNews = (news, filterSymbol) => news?.filter(obj => obj.symbols?.includes(filterSymbol));
 
     useEffect(() => {
         if (!filterSymbol && ctx.stocksWatch.length !== 0) {
@@ -31,8 +30,9 @@ const FilterBar = () => {
                         type="button"
                         onClick={() => {
                             setFilterSymbol(s);
-                            ctx.fetchBars(s);
+                            ctx.fetchBars(filterSymbol);
                             ctx.fetchNews();
+                            console.log(ctx.news[filterSymbol]);
                         }}
                     >
                         {s}
@@ -41,7 +41,7 @@ const FilterBar = () => {
             </div>
             <div>
                 <News
-                    news={filteredNews(news, filterSymbol)}
+                    news={ctx?.news?.[filterSymbol]}
                     symbol={filterSymbol}
                 />
                 <h3>Bar chart - {filterSymbol}</h3>
