@@ -2,7 +2,7 @@
 # Stock-watchlist-microservices-project
 
 Stock Watchlist is a platform that you can add stocks to you watch list, you will able to get news and bar from current year who related to those stocks in you watch list.
-
+[Link to video](https://youtu.be/hUi-NHNOa5A)
 ### Project Architecture
 
 #### backend-service
@@ -44,12 +44,8 @@ Then got to [localhost:3000](http://localhost:3000/)
 
 3. Redis cache
 
-## TODO
+### run with docker compose
 
-- [X] backend side
-- [ ] connect to redis
-- [X] frontend side
-- [X] docker compose
-- [ ] make a video
-- [X] Finish readme    
- 
+``` 
+docker-compose up 
+```
