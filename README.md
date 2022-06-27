@@ -2,6 +2,8 @@
 # Stock-watchlist-microservices-project
 
 Stock Watchlist is a platform that you can add stocks to you watch list, you will able to get news and bar from current year who related to those stocks in you watch list.
+
+
 [Link to video](https://youtu.be/hUi-NHNOa5A)
 ### Project Architecture
 
