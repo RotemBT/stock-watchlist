@@ -1,6 +1,6 @@
 # alpca api
-API_KEY = 'AKQMMBGXFI6VWHXB20T5'
-SECRET_KEY = '6BgrUicRl7xMOmBl2w8OgxsbdQOsCJUdSC3geEne'
+API_KEY = ''
+SECRET_KEY = ''
 
 
 # date constant
